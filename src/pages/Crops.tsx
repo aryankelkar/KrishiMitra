@@ -10,46 +10,49 @@ import {
   Camera,
   Plus
 } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 const Crops = () => {
+  const { t, i18n } = useTranslation();
+
   const myCrops = [
     {
       id: 1,
-      name: "गेहूं (Wheat)",
+      name: i18n.language === 'hi' ? "गेहूं (Wheat)" : "Wheat",
       variety: "HD-2967",
       planted: "15 Nov 2024",
-      area: "2.5 एकड़",
-      stage: "फूल आना",
-      health: "उत्कृष्ट",
-      nextAction: "सिंचाई करें",
+      area: i18n.language === 'hi' ? "2.5 एकड़" : "2.5 acres",
+      stage: i18n.language === 'hi' ? "फूल आना" : "Flowering",
+      health: i18n.language === 'hi' ? "उत्कृष्ट" : "Excellent",
+      nextAction: i18n.language === 'hi' ? "सिंचाई करें" : "Irrigate",
       daysToHarvest: 45,
-      expectedYield: "25 क्विंटल",
+      expectedYield: i18n.language === 'hi' ? "25 क्विंटल" : "25 quintals",
       status: "success"
     },
     {
       id: 2,
-      name: "चना (Chickpea)",
+      name: i18n.language === 'hi' ? "चना (Chickpea)" : "Chickpea",
       variety: "JG-315",
       planted: "20 Nov 2024",
-      area: "1.8 एकड़",
-      stage: "फली भरना",
-      health: "अच्छा",
-      nextAction: "खरपतवार हटाएं",
+      area: i18n.language === 'hi' ? "1.8 एकड़" : "1.8 acres",
+      stage: i18n.language === 'hi' ? "फली भरना" : "Pod Filling",
+      health: i18n.language === 'hi' ? "अच्छा" : "Good",
+      nextAction: i18n.language === 'hi' ? "खरपतवार हटाएं" : "Weed removal",
       daysToHarvest: 38,
-      expectedYield: "15 क्विंटल",
+      expectedYield: i18n.language === 'hi' ? "15 क्विंटल" : "15 quintals",
       status: "success"
     },
     {
       id: 3,
-      name: "सरसों (Mustard)",
+      name: i18n.language === 'hi' ? "सरसों (Mustard)" : "Mustard",
       variety: "Pusa Bold",
       planted: "25 Oct 2024",
-      area: "1.2 एकड़",
-      stage: "फली पकना",
-      health: "ध्यान चाहिए",
-      nextAction: "कीट नियंत्रण",
+      area: i18n.language === 'hi' ? "1.2 एकड़" : "1.2 acres",
+      stage: i18n.language === 'hi' ? "फली पकना" : "Pod Maturation",
+      health: i18n.language === 'hi' ? "ध्यान चाहिए" : "Needs attention",
+      nextAction: i18n.language === 'hi' ? "कीट नियंत्रण" : "Pest control",
       daysToHarvest: 15,
-      expectedYield: "8 क्विंटल",
+      expectedYield: i18n.language === 'hi' ? "8 क्विंटल" : "8 quintals",
       status: "warning"
     }
   ];
@@ -64,9 +67,12 @@ const Crops = () => {
 
   const getHealthColor = (health: string) => {
     switch (health) {
-      case 'उत्कृष्ट': return 'text-success';
-      case 'अच्छा': return 'text-primary';
-      case 'ध्यान चाहिए': return 'text-warning';
+      case 'उत्कृष्ट':
+      case 'Excellent': return 'text-success';
+      case 'अच्छा':
+      case 'Good': return 'text-primary';
+      case 'ध्यान चाहिए':
+      case 'Needs attention': return 'text-warning';
       default: return 'text-muted-foreground';
     }
   };
@@ -78,12 +84,12 @@ const Crops = () => {
         <div className="mb-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-foreground mb-2">मेरी फसलें</h1>
-              <p className="text-muted-foreground">अपनी सभी फसलों की निगरानी करें</p>
+              <h1 className="text-2xl font-bold text-foreground mb-2">{t('crops.title')}</h1>
+              <p className="text-muted-foreground">{t('crops.subtitle')}</p>
             </div>
             <Button className="gap-2">
               <Plus className="h-4 w-4" />
-              नई फसल जोड़ें
+              {t('crops.addCrop')}
             </Button>
           </div>
         </div>
@@ -113,33 +119,33 @@ const Crops = () => {
                 {/* Basic Info */}
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <p className="text-muted-foreground">रोपण तिथि</p>
+                    <p className="text-muted-foreground">{t('crops.plantedOn')}</p>
                     <p className="font-medium">{crop.planted}</p>
                   </div>
                   <div>
-                    <p className="text-muted-foreground">क्षेत्रफल</p>
+                    <p className="text-muted-foreground">{t('crops.area')}</p>
                     <p className="font-medium">{crop.area}</p>
                   </div>
                   <div>
-                    <p className="text-muted-foreground">वर्तमान अवस्था</p>
+                    <p className="text-muted-foreground">{t('crops.currentStage')}</p>
                     <p className="font-medium">{crop.stage}</p>
                   </div>
                   <div>
-                    <p className="text-muted-foreground">कटाई में</p>
-                    <p className="font-medium">{crop.daysToHarvest} दिन</p>
+                    <p className="text-muted-foreground">{t('crops.harvestIn')}</p>
+                    <p className="font-medium">{crop.daysToHarvest} {t('crops.days')}</p>
                   </div>
                 </div>
 
                 {/* Health Status */}
                 <div className="p-3 bg-muted/50 rounded-lg">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium">स्वास्थ्य स्थिति</span>
+                    <span className="text-sm font-medium">{t('crops.healthStatus')}</span>
                     <span className={`text-sm font-semibold ${getHealthColor(crop.health)}`}>
                       {crop.health}
                     </span>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    अगला कार्य: {crop.nextAction}
+                    {t('crops.nextAction')}: {crop.nextAction}
                   </p>
                 </div>
 
@@ -147,7 +153,7 @@ const Crops = () => {
                 <div className="flex items-center justify-between p-3 bg-primary/5 rounded-lg">
                   <div className="flex items-center gap-2">
                     <TrendingUp className="h-4 w-4 text-primary" />
-                    <span className="text-sm font-medium">अपेक्षित उत्पादन</span>
+                    <span className="text-sm font-medium">{t('crops.expectedYield')}</span>
                   </div>
                   <span className="text-sm font-semibold text-primary">
                     {crop.expectedYield}
@@ -158,15 +164,15 @@ const Crops = () => {
                 <div className="flex gap-2 pt-2">
                   <Button variant="outline" size="sm" className="flex-1 gap-2">
                     <Camera className="h-4 w-4" />
-                    फोटो लें
+                    {t('crops.takePhoto')}
                   </Button>
                   <Button variant="outline" size="sm" className="flex-1 gap-2">
                     <Calendar className="h-4 w-4" />
-                    रिकॉर्ड
+                    {t('crops.record')}
                   </Button>
                   <Button variant="outline" size="sm" className="flex-1 gap-2">
                     <Droplets className="h-4 w-4" />
-                    सिंचाई
+                    {t('crops.irrigate')}
                   </Button>
                 </div>
               </CardContent>
@@ -176,13 +182,13 @@ const Crops = () => {
 
         {/* Quick Actions */}
         <div className="mt-8">
-          <h3 className="text-lg font-semibold mb-4">त्वरित कार्य</h3>
+          <h3 className="text-lg font-semibold mb-4">{t('crops.quickActions')}</h3>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {[
-              { title: "मिट्टी परीक्षण", desc: "मिट्टी की गुणवत्ता जांचें", icon: Sprout },
-              { title: "मौसम अलर्ट", desc: "आज के मौसम की जानकारी", icon: Calendar },
-              { title: "सिंचाई योजना", desc: "सिंचाई का समय निर्धारित करें", icon: Droplets },
-              { title: "फसल रिकॉर्ड", desc: "अपने रिकॉर्ड देखें", icon: TrendingUp }
+              { title: t('crops.soilTest'), desc: t('crops.soilTestDesc'), icon: Sprout },
+              { title: t('crops.weatherAlert'), desc: t('crops.weatherAlertDesc'), icon: Calendar },
+              { title: t('crops.irrigationPlan'), desc: t('crops.irrigationPlanDesc'), icon: Droplets },
+              { title: t('crops.cropRecords'), desc: t('crops.cropRecordsDesc'), icon: TrendingUp }
             ].map((action, index) => {
               const IconComponent = action.icon;
               return (

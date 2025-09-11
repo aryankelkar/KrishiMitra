@@ -10,35 +10,18 @@ import {
   Menu
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 const Navigation = () => {
   const location = useLocation();
+  const { t } = useTranslation();
   
   const navigationItems = [
-    {
-      path: '/',
-      label: 'AI Chat',
-      labelHi: 'AI चैट',
-      icon: MessageSquare
-    },
-    {
-      path: '/dashboard',
-      label: 'Dashboard',
-      labelHi: 'डैशबोर्ड',
-      icon: BarChart3
-    },
-    {
-      path: '/crops',
-      label: 'My Crops',
-      labelHi: 'मेरी फसल',
-      icon: Sprout
-    },
-    {
-      path: '/community',
-      label: 'Community',
-      labelHi: 'समुदाय',
-      icon: Users
-    }
+    { path: '/', labelKey: 'nav.chat', icon: MessageSquare },
+    { path: '/dashboard', labelKey: 'nav.dashboard', icon: BarChart3 },
+    { path: '/crops', labelKey: 'nav.crops', icon: Sprout },
+    { path: '/community', labelKey: 'nav.community', icon: Users }
   ];
 
   const NavItems = ({ mobile = false }: { mobile?: boolean }) => (
@@ -55,8 +38,7 @@ const Navigation = () => {
               className={`${mobile ? 'w-full justify-start' : ''} gap-2`}
             >
               <IconComponent className="h-4 w-4" />
-              <span className="hidden sm:inline">{item.label}</span>
-              <span className="sm:hidden text-xs">{item.labelHi}</span>
+              <span className="text-xs sm:text-sm">{t(item.labelKey)}</span>
             </Button>
           </Link>
         );
@@ -73,14 +55,17 @@ const Navigation = () => {
             <Sprout className="h-6 w-6 text-primary" />
           </div>
           <div>
-            <h1 className="text-lg font-semibold">कृषि मित्र</h1>
-            <p className="text-xs text-muted-foreground">Smart Farming Assistant</p>
+            <h1 className="text-lg font-semibold">{t('app.name')}</h1>
+            <p className="text-xs text-muted-foreground">{t('app.tagline')}</p>
           </div>
         </div>
         
-        <NavItems />
+        <div className="flex items-center gap-2">
+          <NavItems />
+          <LanguageSwitcher />
+        </div>
         
-        <Button variant="ghost" size="sm">
+        <Button variant="ghost" size="sm" aria-label={t('nav.settings')}>
           <Settings className="h-4 w-4" />
         </Button>
       </nav>
@@ -91,7 +76,7 @@ const Navigation = () => {
           <div className="p-1.5 rounded-full bg-primary/10">
             <Sprout className="h-5 w-5 text-primary" />
           </div>
-          <h1 className="text-base font-semibold">कृषि मित्र</h1>
+          <h1 className="text-base font-semibold">{t('app.name')}</h1>
         </div>
         
         <Sheet>
@@ -103,6 +88,9 @@ const Navigation = () => {
           <SheetContent>
             <div className="mt-6">
               <NavItems mobile />
+              <div className="mt-4">
+                <LanguageSwitcher />
+              </div>
             </div>
           </SheetContent>
         </Sheet>
@@ -123,7 +111,7 @@ const Navigation = () => {
                   className="w-full flex-col h-12 text-xs gap-1"
                 >
                   <IconComponent className="h-4 w-4" />
-                  <span>{item.labelHi}</span>
+                  <span>{t(item.labelKey)}</span>
                 </Button>
               </Link>
             );

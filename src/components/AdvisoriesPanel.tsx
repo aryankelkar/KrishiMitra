@@ -4,11 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Bell, CheckCircle, AlertTriangle } from "lucide-react";
 import { useOfflineStorage } from "@/hooks/useOfflineStorage";
 import { formatDistanceToNow } from "date-fns";
+import { useTranslation } from 'react-i18next';
 
 export const AdvisoriesPanel = () => {
   const { getAdvisories, markAdvisoryAsRead } = useOfflineStorage();
   const advisories = getAdvisories();
   const unreadCount = advisories.filter(a => !a.isRead).length;
+  const { t } = useTranslation();
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
@@ -34,11 +36,11 @@ export const AdvisoriesPanel = () => {
         <CardTitle className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Bell className="h-5 w-5 text-primary" />
-            Farm Advisories
+            {t('advisories.title')}
           </div>
           {unreadCount > 0 && (
             <Badge className="bg-destructive text-destructive-foreground">
-              {unreadCount} new
+              {t('advisories.newCount', { count: unreadCount })}
             </Badge>
           )}
         </CardTitle>
@@ -47,7 +49,7 @@ export const AdvisoriesPanel = () => {
         <div className="space-y-3 max-h-64 overflow-y-auto">
           {advisories.length === 0 ? (
             <p className="text-muted-foreground text-center py-4">
-              No advisories available
+              {t('advisories.none')}
             </p>
           ) : (
             advisories.map((advisory) => (
@@ -88,7 +90,7 @@ export const AdvisoriesPanel = () => {
                           onClick={() => markAdvisoryAsRead(advisory.id)}
                           className="h-6 text-xs"
                         >
-                          Mark Read
+                          {t('advisories.markRead')}
                         </Button>
                       )}
                     </div>

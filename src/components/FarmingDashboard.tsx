@@ -19,10 +19,13 @@ import { OfflineIndicator } from "./OfflineIndicator";
 import { AdvisoriesPanel } from "./AdvisoriesPanel";
 import { useOfflineStorage } from "@/hooks/useOfflineStorage";
 import { useSyncManager } from "@/hooks/useSyncManager";
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 const FarmingDashboard = () => {
   const { getWeatherData } = useOfflineStorage();
   useSyncManager(); // Initialize sync manager
+  const { t } = useTranslation();
   
   const weatherHistory = getWeatherData();
   const weatherData = weatherHistory[0] || {
@@ -34,17 +37,9 @@ const FarmingDashboard = () => {
   };
 
   const cropPredictions = [
-    { crop: "Wheat", health: "Excellent", yield: "+15%", status: "success" },
-    { crop: "Rice", health: "Good", yield: "+8%", status: "success" },
-    { crop: "Corn", health: "Attention", yield: "-2%", status: "warning" },
-  ];
-
-  const languages = [
-    { code: "hi", name: "हिंदी" },
-    { code: "en", name: "English" },
-    { code: "ta", name: "தமிழ்" },
-    { code: "te", name: "తెలుగు" },
-    { code: "bn", name: "বাংলা" }
+    { crop: "Wheat", health: t('dashboard.health') + ': ' + "Excellent", yield: "+15%", status: "success" },
+    { crop: "Rice", health: t('dashboard.health') + ': ' + "Good", yield: "+8%", status: "success" },
+    { crop: "Corn", health: t('dashboard.health') + ': ' + "Attention", yield: "-2%", status: "warning" },
   ];
 
   return (
@@ -55,24 +50,20 @@ const FarmingDashboard = () => {
           <div className="flex items-center gap-3">
             <Sprout className="h-8 w-8 text-primary" />
             <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
-              KrishiMitra
+              {t('dashboard.brand')}
             </h1>
           </div>
           
           <div className="flex items-center gap-4">
             <OfflineIndicator />
-            <select className="px-3 py-2 rounded-lg border bg-background text-sm">
-              {languages.map(lang => (
-                <option key={lang.code} value={lang.code}>{lang.name}</option>
-              ))}
-            </select>
+            <LanguageSwitcher />
             <Button variant="outline" size="sm">
               <Bell className="h-4 w-4 mr-2" />
-              Alerts
+              {t('dashboard.alerts')}
             </Button>
             <Button variant="outline" size="sm">
               <User className="h-4 w-4 mr-2" />
-              Profile
+              {t('dashboard.profile')}
             </Button>
           </div>
         </div>
@@ -88,14 +79,14 @@ const FarmingDashboard = () => {
           <div className="relative container mx-auto px-4 h-full flex items-center">
             <div className="text-white max-w-lg">
               <h2 className="text-4xl font-bold mb-4">
-                Smart Farming for Better Harvests
+                {t('dashboard.heroTitle')}
               </h2>
               <p className="text-xl mb-6 text-white/90">
-                AI-powered insights for crop prediction, weather monitoring, and pest detection
+                {t('dashboard.heroSubtitle')}
               </p>
               <Button size="lg" className="bg-white text-primary hover:bg-white/90">
                 <MapPin className="h-4 w-4 mr-2" />
-                Set Farm Location
+                {t('dashboard.setFarmLocation')}
               </Button>
             </div>
           </div>
@@ -118,7 +109,7 @@ const FarmingDashboard = () => {
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Cloud className="h-5 w-5 text-primary" />
-                Weather Today
+                {t('dashboard.weatherToday')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -132,15 +123,15 @@ const FarmingDashboard = () => {
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div className="flex items-center gap-2">
                   <Droplets className="h-4 w-4 text-blue-500" />
-                  <span>Humidity: {weatherData.humidity}</span>
+                  <span>{t('dashboard.humidity')}: {weatherData.humidity}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Wind className="h-4 w-4 text-gray-500" />
-                  <span>Wind: {weatherData.windSpeed}</span>
+                  <span>{t('dashboard.wind')}: {weatherData.windSpeed}</span>
                 </div>
                 <div className="flex items-center gap-2 col-span-2">
                   <Thermometer className="h-4 w-4 text-orange-500" />
-                  <span>Rainfall: {weatherData.rainfall}</span>
+                  <span>{t('dashboard.rainfall')}: {weatherData.rainfall}</span>
                 </div>
               </div>
             </CardContent>
@@ -151,7 +142,7 @@ const FarmingDashboard = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <TrendingUp className="h-5 w-5 text-success" />
-                Crop Predictions
+                {t('dashboard.cropPredictions')}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -162,7 +153,7 @@ const FarmingDashboard = () => {
                       <Sprout className="h-5 w-5 text-success" />
                       <div>
                         <p className="font-medium">{crop.crop}</p>
-                        <p className="text-sm text-muted-foreground">Health: {crop.health}</p>
+                        <p className="text-sm text-muted-foreground">{crop.health}</p>
                       </div>
                     </div>
                     <div className="text-right">
@@ -189,14 +180,14 @@ const FarmingDashboard = () => {
           <Card className="group hover:shadow-[var(--shadow-strong)] transition-all duration-300 cursor-pointer border-2 hover:border-primary/20">
             <CardHeader className="text-center pb-2">
               <Bug className="h-12 w-12 text-destructive mx-auto mb-2 group-hover:scale-110 transition-transform" />
-              <CardTitle className="text-lg">Pest Detection</CardTitle>
+              <CardTitle className="text-lg">{t('dashboard.pestDetection')}</CardTitle>
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-sm text-muted-foreground mb-4">
-                AI-powered pest identification and treatment recommendations
+                {t('dashboard.pestDetectionDesc')}
               </p>
               <Button variant="outline" className="w-full">
-                Scan Crop
+                {t('dashboard.scanCrop')}
               </Button>
             </CardContent>
           </Card>
@@ -205,14 +196,14 @@ const FarmingDashboard = () => {
           <Card className="group hover:shadow-[var(--shadow-strong)] transition-all duration-300 cursor-pointer border-2 hover:border-primary/20">
             <CardHeader className="text-center pb-2">
               <Sprout className="h-12 w-12 text-warning mx-auto mb-2 group-hover:scale-110 transition-transform" />
-              <CardTitle className="text-lg">Disease Analysis</CardTitle>
+              <CardTitle className="text-lg">{t('dashboard.diseaseAnalysis')}</CardTitle>
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-sm text-muted-foreground mb-4">
-                Early disease detection with treatment suggestions
+                {t('dashboard.diseaseAnalysisDesc')}
               </p>
               <Button variant="outline" className="w-full">
-                Analyze Plant
+                {t('dashboard.analyzePlant')}
               </Button>
             </CardContent>
           </Card>
@@ -221,14 +212,14 @@ const FarmingDashboard = () => {
           <Card className="group hover:shadow-[var(--shadow-strong)] transition-all duration-300 cursor-pointer border-2 hover:border-primary/20">
             <CardHeader className="text-center pb-2">
               <Globe className="h-12 w-12 text-accent mx-auto mb-2 group-hover:scale-110 transition-transform" />
-              <CardTitle className="text-lg">Soil Health</CardTitle>
+              <CardTitle className="text-lg">{t('dashboard.soilHealth')}</CardTitle>
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-sm text-muted-foreground mb-4">
-                Comprehensive soil analysis and improvement tips
+                {t('dashboard.soilHealthDesc')}
               </p>
               <Button variant="outline" className="w-full">
-                Check Soil
+                {t('dashboard.checkSoil')}
               </Button>
             </CardContent>
           </Card>
@@ -237,14 +228,14 @@ const FarmingDashboard = () => {
           <Card className="group hover:shadow-[var(--shadow-strong)] transition-all duration-300 cursor-pointer border-2 hover:border-primary/20">
             <CardHeader className="text-center pb-2">
               <TrendingUp className="h-12 w-12 text-success mx-auto mb-2 group-hover:scale-110 transition-transform" />
-              <CardTitle className="text-lg">Market Prices</CardTitle>
+              <CardTitle className="text-lg">{t('dashboard.marketPrices')}</CardTitle>
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-sm text-muted-foreground mb-4">
-                Real-time crop prices and market trends
+                {t('dashboard.marketPricesDesc')}
               </p>
               <Button variant="outline" className="w-full">
-                View Prices
+                {t('dashboard.viewPrices')}
               </Button>
             </CardContent>
           </Card>
@@ -257,16 +248,16 @@ const FarmingDashboard = () => {
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
                 <Globe className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Ask KrishiMitra Assistant</h3>
+              <h3 className="text-xl font-semibold mb-2">{t('dashboard.askAssistant')}</h3>
               <p className="text-muted-foreground mb-4">
-                Get instant answers in your local language about farming, weather, and crops
+                {t('dashboard.askAssistantDesc')}
               </p>
               <div className="flex gap-3 justify-center">
                 <Button size="lg" className="bg-primary hover:bg-primary/90">
-                  🎤 Voice Chat
+                  🎤 {t('dashboard.voiceChat')}
                 </Button>
                 <Button variant="outline" size="lg">
-                  💬 Text Chat
+                  💬 {t('dashboard.textChat')}
                 </Button>
               </div>
             </div>

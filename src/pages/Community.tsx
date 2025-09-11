@@ -16,9 +16,11 @@ import {
   Image,
   Video
 } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 const Community = () => {
   const [newPost, setNewPost] = useState('');
+  const { t, i18n } = useTranslation();
   
   const communityPosts = [
     {
@@ -68,12 +70,12 @@ const Community = () => {
   ];
 
   const categories = [
-    { name: "सभी", color: "outline" },
-    { name: "सफलता की कहानी", color: "default" },
-    { name: "सहायता चाहिए", color: "destructive" },
-    { name: "जैविक खेती", color: "secondary" },
-    { name: "चेतावनी", color: "destructive" },
-    { name: "नई तकनीक", color: "outline" }
+    { name: i18n.language === 'hi' ? "सभी" : 'All', color: "outline" },
+    { name: i18n.language === 'hi' ? "सफलता की कहानी" : 'Success Stories', color: "default" },
+    { name: i18n.language === 'hi' ? "सहायता चाहिए" : 'Needs Help', color: "destructive" },
+    { name: i18n.language === 'hi' ? "जैविक खेती" : 'Organic Farming', color: "secondary" },
+    { name: i18n.language === 'hi' ? "चेतावनी" : 'Warning', color: "destructive" },
+    { name: i18n.language === 'hi' ? "नई तकनीक" : 'New Tech', color: "outline" }
   ];
 
   const getCategoryVariant = (color: string) => {
@@ -102,8 +104,8 @@ const Community = () => {
               <Users className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-foreground">किसान समुदाय</h1>
-              <p className="text-muted-foreground">अपने अनुभव साझा करें और दूसरों से सीखें</p>
+              <h1 className="text-2xl font-bold text-foreground">{t('community.title')}</h1>
+              <p className="text-muted-foreground">{t('community.subtitle')}</p>
             </div>
           </div>
 
@@ -125,30 +127,30 @@ const Community = () => {
         {/* Create Post */}
         <Card className="mb-6">
           <CardHeader className="pb-3">
-            <CardTitle className="text-lg">नई पोस्ट लिखें</CardTitle>
+            <CardTitle className="text-lg">{t('community.newPost')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <Textarea
                 value={newPost}
                 onChange={(e) => setNewPost(e.target.value)}
-                placeholder="अपना अनुभव, सवाल या सलाह साझा करें..."
+                placeholder={t('community.placeholder')}
                 className="min-h-[100px]"
               />
               <div className="flex justify-between items-center">
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm" className="gap-2">
                     <Image className="h-4 w-4" />
-                    फोटो
+                    {t('community.photo')}
                   </Button>
                   <Button variant="outline" size="sm" className="gap-2">
                     <Video className="h-4 w-4" />
-                    वीडियो
+                    {t('community.video')}
                   </Button>
                 </div>
                 <Button onClick={handlePost} disabled={!newPost.trim()} className="gap-2">
                   <Send className="h-4 w-4" />
-                  पोस्ट करें
+                  {t('community.post')}
                 </Button>
               </div>
             </div>
@@ -215,7 +217,7 @@ const Community = () => {
 
         {/* Load More */}
         <div className="mt-8 text-center">
-          <Button variant="outline">और पोस्ट देखें</Button>
+          <Button variant="outline">{t('community.loadMore')}</Button>
         </div>
       </div>
     </div>

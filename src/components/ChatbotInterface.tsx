@@ -15,6 +15,7 @@ import {
   Sprout,
   MessageCircle
 } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 interface Message {
   id: string;
@@ -25,11 +26,12 @@ interface Message {
 }
 
 const ChatbotInterface = () => {
+  const { t, i18n } = useTranslation();
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
       type: 'bot',
-      content: 'नमस्ते! मैं आपका कृषि सहायक हूं। आप मुझसे फसल, मौसम, या कृषि संबंधी कोई भी प्रश्न पूछ सकते हैं। 🌾',
+      content: i18n.language === 'hi' ? 'नमस्ते! मैं आपका कृषि सहायक हूं। आप मुझसे फसल, मौसम, या कृषि संबंधी कोई भी प्रश्न पूछ सकते हैं। 🌾' : i18n.language === 'pa' ? 'ਸਤ ਸ੍ਰੀ ਅਕਾਲ! ਮੈਂ ਤੁਹਾਡਾ ਖੇਤੀ ਸਹਾਇਕ ਹਾਂ। ਤੁਸੀਂ ਮੈਨੂੰ ਫਸਲ, ਮੌਸਮ ਜਾਂ ਖੇਤੀ ਬਾਰੇ ਕੁਝ ਵੀ ਪੁੱਛ ਸਕਦੇ ਹੋ। 🌾' : "Hello! I'm your farming assistant. Ask me about crops, weather, or agriculture. 🌾",
       timestamp: new Date()
     }
   ]);
@@ -37,18 +39,9 @@ const ChatbotInterface = () => {
   const [inputMessage, setInputMessage] = useState('');
   const [isRecording, setIsRecording] = useState(false);
   const [isListening, setIsListening] = useState(true);
-  const [language, setLanguage] = useState('hi');
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const languages = [
-    { code: "hi", name: "हिंदी", flag: "🇮🇳" },
-    { code: "en", name: "English", flag: "🇺🇸" },
-    { code: "ta", name: "தமிழ்", flag: "🇮🇳" },
-    { code: "te", name: "తెలుగు", flag: "🇮🇳" },
-    { code: "bn", name: "বাংলা", flag: "🇮🇳" }
-  ];
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -72,7 +65,7 @@ const ChatbotInterface = () => {
       const botResponse: Message = {
         id: (Date.now() + 1).toString(),
         type: 'bot',
-        content: getBotResponse(inputMessage, language),
+        content: getBotResponse(inputMessage, i18n.language),
         timestamp: new Date()
       };
       setMessages(prev => [...prev, botResponse]);
@@ -92,16 +85,22 @@ const ChatbotInterface = () => {
         crop: "Your crops look healthy. Water regularly and protect from weeds.",
         pest: "To prevent pest infestation, spray neem oil. Use organic pesticides.",
         default: "I'm here to help you. You can ask me about crops, weather, or agriculture."
+      },
+      pa: {
+        weather: "ਅੱਜ ਮੌਸਮ ਵਧੀਆ ਹੈ। ਤਾਪਮਾਨ 28°C ਹੈ, ਨਾਂਮੀ 65%। ਸਿੰਚਾਈ ਲਈ ਚੰਗਾ ਸਮਾਂ ਹੈ।",
+        crop: "ਤੁਹਾਡੀਆਂ ਫਸਲਾਂ ਸਿਹਤਮੰਦ ਲੱਗਦੀਆਂ ਹਨ। ਨਿਯਮਿਤ ਪਾਣੀ ਦਿਓ ਅਤੇ ਘਾਹ-ਫੂਸ ਤੋਂ ਬਚਾਓ।",
+        pest: "ਕੀਟਾਂ ਤੋਂ ਬਚਣ ਲਈ ਨੀਮ ਤੇਲ ਦਾ ਛਿੜਕਾਅ ਕਰੋ। ਜੈਵਿਕ ਕੀਟਨਾਸ਼ਕ ਵਰਤੋ।",
+        default: "ਮੈਂ ਮਦਦ ਲਈ ਹਾਜ਼ਰ ਹਾਂ। ਤੁਸੀਂ ਫਸਲ, ਮੌਸਮ ਜਾਂ ਖੇਤੀ ਬਾਰੇ ਪੁੱਛ ਸਕਦੇ ਹੋ।"
       }
-    };
+    } as const;
 
-    const currentLang = responses[lang as keyof typeof responses] || responses.hi;
-    
-    if (message.toLowerCase().includes('weather') || message.includes('मौसम')) {
+    const currentLang = (responses as any)[lang] || responses.hi;
+    const lower = message.toLowerCase();
+    if (lower.includes('weather') || message.includes('मौसम') || message.includes('ਮੌਸਮ')) {
       return currentLang.weather;
-    } else if (message.toLowerCase().includes('crop') || message.includes('फसल')) {
+    } else if (lower.includes('crop') || message.includes('ਫਸਲ') || message.includes('फसल')) {
       return currentLang.crop;
-    } else if (message.toLowerCase().includes('pest') || message.includes('कीट')) {
+    } else if (lower.includes('pest') || message.includes('ਕੀਟ') || message.includes('कीट')) {
       return currentLang.pest;
     }
     
@@ -124,28 +123,11 @@ const ChatbotInterface = () => {
         <div className="mb-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-full bg-primary/10">
-                <Sprout className="h-8 w-8 text-primary" />
-              </div>
+              <img src="/logo.png" alt="logo" className="h-8 w-8" />
               <div>
-                <h1 className="text-2xl font-bold text-foreground">कृषि मित्र AI</h1>
-                <p className="text-muted-foreground">Your Smart Farming Assistant</p>
+                <h1 className="text-2xl font-bold text-foreground">{t('chatbot.title')}</h1>
+                <p className="text-muted-foreground">{t('chatbot.subtitle')}</p>
               </div>
-            </div>
-            
-            {/* Language Selector */}
-            <div className="flex gap-2">
-              {languages.map((lang) => (
-                <Button
-                  key={lang.code}
-                  variant={language === lang.code ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setLanguage(lang.code)}
-                  className="text-xs"
-                >
-                  {lang.flag} {lang.name}
-                </Button>
-              ))}
             </div>
           </div>
         </div>
@@ -156,12 +138,12 @@ const ChatbotInterface = () => {
             <div className="flex items-center justify-between">
               <CardTitle className="flex items-center gap-2">
                 <MessageCircle className="h-5 w-5" />
-                Chat with AI Assistant
+                {t('chatbot.chatTitle')}
               </CardTitle>
               <div className="flex gap-2">
                 <Badge variant={isListening ? "default" : "secondary"} className="flex items-center gap-1">
                   {isListening ? <Volume2 className="h-3 w-3" /> : <VolumeX className="h-3 w-3" />}
-                  {isListening ? "Listening" : "Muted"}
+                  {isListening ? t('chatbot.listening') : t('chatbot.muted')}
                 </Badge>
               </div>
             </div>
@@ -210,7 +192,7 @@ const ChatbotInterface = () => {
                   value={inputMessage}
                   onChange={(e) => setInputMessage(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                  placeholder={language === 'hi' ? 'अपना संदेश टाइप करें...' : 'Type your message...'}
+                  placeholder={t('chatbot.inputPlaceholder')}
                   className="flex-1"
                 />
                 
@@ -236,10 +218,10 @@ const ChatbotInterface = () => {
             {/* Quick Actions */}
             <div className="flex flex-wrap gap-2 mt-3">
               {[
-                { text: language === 'hi' ? 'मौसम जानकारी' : 'Weather Info', action: () => setInputMessage(language === 'hi' ? 'आज का मौसम कैसा है?' : 'What is today\'s weather?') },
-                { text: language === 'hi' ? 'फसल सलाह' : 'Crop Advice', action: () => setInputMessage(language === 'hi' ? 'मेरी फसल के लिए सलाह दें' : 'Give advice for my crops') },
-                { text: language === 'hi' ? 'कीट नियंत्रण' : 'Pest Control', action: () => setInputMessage(language === 'hi' ? 'कीट नियंत्रण के उपाय' : 'Pest control measures') },
-                { text: language === 'hi' ? 'बाजार भाव' : 'Market Prices', action: () => setInputMessage(language === 'hi' ? 'आज के बाजार भाव' : 'Today\'s market prices') }
+                { text: t('chatbot.quickWeather'), action: () => setInputMessage(t('chatbot.quickWeatherQ')) },
+                { text: t('chatbot.quickCrop'), action: () => setInputMessage(t('chatbot.quickCropQ')) },
+                { text: t('chatbot.quickPest'), action: () => setInputMessage(t('chatbot.quickPestQ')) },
+                { text: t('chatbot.quickMarket'), action: () => setInputMessage(t('chatbot.quickMarketQ')) }
               ].map((item, index) => (
                 <Button
                   key={index}
