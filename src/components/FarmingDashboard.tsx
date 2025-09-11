@@ -15,9 +15,17 @@ import {
   User
 } from "lucide-react";
 import farmingHero from "@/assets/farming-hero.jpg";
+import { OfflineIndicator } from "./OfflineIndicator";
+import { AdvisoriesPanel } from "./AdvisoriesPanel";
+import { useOfflineStorage } from "@/hooks/useOfflineStorage";
+import { useSyncManager } from "@/hooks/useSyncManager";
 
 const FarmingDashboard = () => {
-  const weatherData = {
+  const { getWeatherData } = useOfflineStorage();
+  useSyncManager(); // Initialize sync manager
+  
+  const weatherHistory = getWeatherData();
+  const weatherData = weatherHistory[0] || {
     temperature: "28°C",
     humidity: "65%",
     rainfall: "12mm",
@@ -52,6 +60,7 @@ const FarmingDashboard = () => {
           </div>
           
           <div className="flex items-center gap-4">
+            <OfflineIndicator />
             <select className="px-3 py-2 rounded-lg border bg-background text-sm">
               {languages.map(lang => (
                 <option key={lang.code} value={lang.code}>{lang.name}</option>
@@ -95,10 +104,17 @@ const FarmingDashboard = () => {
 
       {/* Main Dashboard */}
       <main className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
           
-          {/* Weather Card */}
-          <Card className="col-span-1 shadow-[var(--shadow-medium)] hover:shadow-[var(--shadow-strong)] transition-shadow">
+          {/* Advisories Panel */}
+          <div className="lg:col-span-1">
+            <AdvisoriesPanel />
+          </div>
+          <div className="lg:col-span-3">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              
+              {/* Weather Card */}
+              <Card className="col-span-1 shadow-[var(--shadow-medium)] hover:shadow-[var(--shadow-strong)] transition-shadow">
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Cloud className="h-5 w-5 text-primary" />
@@ -162,6 +178,8 @@ const FarmingDashboard = () => {
               </div>
             </CardContent>
           </Card>
+            </div>
+          </div>
         </div>
 
         {/* Action Cards Grid */}
