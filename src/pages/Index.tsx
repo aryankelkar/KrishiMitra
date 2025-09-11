@@ -1,7 +1,7 @@
-import FarmingDashboard from "@/components/FarmingDashboard";
+import ChatbotInterface from "@/components/ChatbotInterface";
 
 const Index = () => {
-  return <FarmingDashboard />;
+  return <ChatbotInterface />;
 };
 
 export default Index;
