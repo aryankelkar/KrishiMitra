@@ -51,9 +51,7 @@ const Navigation = () => {
       {/* Desktop Navigation */}
       <nav className="hidden md:flex items-center justify-between p-4 bg-card border-b">
         <div className="flex items-center gap-3">
-          <div className="p-2 rounded-full bg-primary/10">
-            <Sprout className="h-6 w-6 text-primary" />
-          </div>
+          <img src="/logo.png" alt="logo" className="h-8 w-8" />
           <div>
             <h1 className="text-lg font-semibold">{t('app.name')}</h1>
             <p className="text-xs text-muted-foreground">{t('app.tagline')}</p>
@@ -73,9 +71,7 @@ const Navigation = () => {
       {/* Mobile Navigation */}
       <nav className="md:hidden flex items-center justify-between p-4 bg-card border-b">
         <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-full bg-primary/10">
-            <Sprout className="h-5 w-5 text-primary" />
-          </div>
+          <img src="/logo.png" alt="logo" className="h-6 w-6" />
           <h1 className="text-base font-semibold">{t('app.name')}</h1>
         </div>
         

@@ -48,7 +48,7 @@ const FarmingDashboard = () => {
       <header className="border-b bg-card/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Sprout className="h-8 w-8 text-primary" />
+            <img src="/logo.png" alt="logo" className="h-8 w-8" />
             <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
               {t('dashboard.brand')}
             </h1>
@@ -56,7 +56,6 @@ const FarmingDashboard = () => {
           
           <div className="flex items-center gap-4">
             <OfflineIndicator />
-            <LanguageSwitcher />
             <Button variant="outline" size="sm">
               <Bell className="h-4 w-4 mr-2" />
               {t('dashboard.alerts')}
@@ -253,11 +252,8 @@ const FarmingDashboard = () => {
                 {t('dashboard.askAssistantDesc')}
               </p>
               <div className="flex gap-3 justify-center">
-                <Button size="lg" className="bg-primary hover:bg-primary/90">
-                  🎤 {t('dashboard.voiceChat')}
-                </Button>
-                <Button variant="outline" size="lg">
-                  💬 {t('dashboard.textChat')}
+                <Button size="lg" className="bg-primary hover:bg-primary/90" onClick={() => window.location.href = '/'}>
+                  💬 Chat with us
                 </Button>
               </div>
             </div>

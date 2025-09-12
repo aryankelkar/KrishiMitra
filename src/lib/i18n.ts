@@ -55,7 +55,8 @@ export const resources = {
       lang: {
         label: 'Language',
         english: 'English',
-        hindi: 'Hindi'
+        hindi: 'Hindi',
+        punjabi: 'Punjabi'
       },
       dashboard: {
         brand: 'KrishiMitra',
@@ -105,14 +106,7 @@ export const resources = {
         listening: 'Listening',
         muted: 'Muted',
         inputPlaceholder: 'Type your message...',
-        quickWeather: 'Weather Info',
-        quickWeatherQ: "What's today's weather?",
-        quickCrop: 'Crop Advice',
-        quickCropQ: 'Give advice for my crops',
-        quickPest: 'Pest Control',
-        quickPestQ: 'Pest control measures',
-        quickMarket: 'Market Prices',
-        quickMarketQ: "Today's market prices"
+        
       },
       notFound: {
         oops: 'Oops! Page not found',
@@ -221,14 +215,7 @@ export const resources = {
         listening: 'सुन रहा है',
         muted: 'म्यूट',
         inputPlaceholder: 'अपना संदेश टाइप करें...',
-        quickWeather: 'मौसम जानकारी',
-        quickWeatherQ: 'आज का मौसम कैसा है?',
-        quickCrop: 'फसल सलाह',
-        quickCropQ: 'मेरी फसल के लिए सलाह दें',
-        quickPest: 'कीट नियंत्रण',
-        quickPestQ: 'कीट नियंत्रण के उपाय',
-        quickMarket: 'बाजार भाव',
-        quickMarketQ: 'आज के बाजार भाव'
+        
       },
       notFound: {
         oops: 'अरे! पेज नहीं मिला',
@@ -338,14 +325,7 @@ export const resources = {
         listening: 'ਸੁਣ ਰਿਹਾ',
         muted: 'ਮਿਊਟ',
         inputPlaceholder: 'ਆਪਣਾ ਸੁਨੇਹਾ ਟਾਈਪ ਕਰੋ...',
-        quickWeather: 'ਮੌਸਮ ਜਾਣਕਾਰੀ',
-        quickWeatherQ: 'ਅੱਜ ਦਾ ਮੌਸਮ ਕਿਵੇਂ ਹੈ?',
-        quickCrop: 'ਫਸਲ ਸਲਾਹ',
-        quickCropQ: 'ਮੇਰੀ ਫਸਲ ਲਈ ਸਲਾਹ ਦਿਓ',
-        quickPest: 'ਕੀਟ ਕੰਟਰੋਲ',
-        quickPestQ: 'ਕੀਟ ਕੰਟਰੋਲ ਉਪਾਅ',
-        quickMarket: 'ਮੰਡੀ ਭਾਵ',
-        quickMarketQ: 'ਅੱਜ ਦੇ ਮੰਡੀ ਭਾਵ'
+        
       },
       notFound: {
         oops: 'ਓਹੁ! ਪੇਜ ਨਹੀਂ ਮਿਲਿਆ',
