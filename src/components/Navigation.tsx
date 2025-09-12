@@ -35,7 +35,7 @@ const Navigation = () => {
             <Button
               variant={isActive ? "default" : "ghost"}
               size={mobile ? "lg" : "sm"}
-              className={`${mobile ? 'w-full justify-start' : ''} gap-2`}
+              className={`${mobile ? 'w-full justify-start' : ''} gap-2 transition-all hover:scale-105`}
             >
               <IconComponent className="h-4 w-4" />
               <span className="text-xs sm:text-sm">{t(item.labelKey)}</span>
@@ -51,7 +51,7 @@ const Navigation = () => {
       {/* Desktop Navigation */}
       <nav className="hidden md:flex items-center justify-between p-4 bg-card border-b">
         <div className="flex items-center gap-3">
-          <div className="p-2 rounded-full bg-primary/10">
+          <div className="p-2 rounded-full bg-primary/10 animate-scale-in">
             <Sprout className="h-6 w-6 text-primary" />
           </div>
           <div>
@@ -65,7 +65,7 @@ const Navigation = () => {
           <LanguageSwitcher />
         </div>
         
-        <Button variant="ghost" size="sm" aria-label={t('nav.settings')}>
+        <Button variant="ghost" size="sm" aria-label={t('nav.settings')} className="transition-all hover:scale-105">
           <Settings className="h-4 w-4" />
         </Button>
       </nav>
@@ -73,7 +73,7 @@ const Navigation = () => {
       {/* Mobile Navigation */}
       <nav className="md:hidden flex items-center justify-between p-4 bg-card border-b">
         <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-full bg-primary/10">
+          <div className="p-1.5 rounded-full bg-primary/10 animate-scale-in">
             <Sprout className="h-5 w-5 text-primary" />
           </div>
           <h1 className="text-base font-semibold">{t('app.name')}</h1>
@@ -81,11 +81,11 @@ const Navigation = () => {
         
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="sm">
+            <Button variant="ghost" size="sm" className="transition-all hover:scale-105">
               <Menu className="h-5 w-5" />
             </Button>
           </SheetTrigger>
-          <SheetContent>
+          <SheetContent className="animate-slide-in-right">
             <div className="mt-6">
               <NavItems mobile />
               <div className="mt-4">
@@ -97,7 +97,7 @@ const Navigation = () => {
       </nav>
 
       {/* Bottom Navigation for Mobile */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-card border-t p-2">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur-sm border-t p-2">
         <div className="flex justify-around">
           {navigationItems.map((item) => {
             const IconComponent = item.icon;
@@ -108,7 +108,7 @@ const Navigation = () => {
                 <Button
                   variant={isActive ? "default" : "ghost"}
                   size="sm"
-                  className="w-full flex-col h-12 text-xs gap-1"
+                  className="w-full flex-col h-12 text-xs gap-1 transition-all hover:scale-105"
                 >
                   <IconComponent className="h-4 w-4" />
                   <span>{t(item.labelKey)}</span>
