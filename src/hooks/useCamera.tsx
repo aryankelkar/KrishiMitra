@@ -13,6 +13,8 @@ export interface CameraControls {
   capturePhoto: () => string | null;
   switchCamera: () => Promise<void>;
   requestPermission: () => Promise<boolean>;
+  videoRef: React.RefObject<HTMLVideoElement>;
+  canvasRef: React.RefObject<HTMLCanvasElement>;
 }
 
 export const useCamera = (): CameraState & CameraControls => {

@@ -277,7 +277,7 @@ const CameraScanner: React.FC<CameraScannerProps> = ({
               <div className="flex justify-center gap-4 mt-4">
                 <Button
                   onClick={handleCapture}
-                  disabled={!isStreaming || error}
+                  disabled={!isStreaming || !!error}
                   className="bg-primary hover:bg-primary/90"
                 >
                   <Camera className="h-4 w-4 mr-2" />
@@ -286,7 +286,7 @@ const CameraScanner: React.FC<CameraScannerProps> = ({
                 <Button
                   variant="outline"
                   onClick={switchCamera}
-                  disabled={!isStreaming || error}
+                  disabled={!isStreaming || !!error}
                 >
                   <RotateCcw className="h-4 w-4 mr-2" />
                   Switch Camera
