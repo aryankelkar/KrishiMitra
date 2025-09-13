@@ -1,31 +1,54 @@
 import React from 'react';
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Languages } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const LanguageSwitcher = () => {
   const { i18n, t } = useTranslation();
 
-  const handleChange = (lang: string) => {
-    i18n.changeLanguage(lang);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('lang', lang);
-    }
+  const languages = [
+    { code: 'en', name: 'English', nativeName: 'English' },
+    { code: 'hi', name: 'Hindi', nativeName: 'हिन्दी' },
+    { code: 'pa', name: 'Punjabi', nativeName: 'ਪੰਜਾਬੀ' }
+  ];
+
+  const changeLanguage = (langCode: string) => {
+    i18n.changeLanguage(langCode);
+    localStorage.setItem('lang', langCode);
   };
 
+  const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
+
   return (
-    <Select value={i18n.language} onValueChange={handleChange}>
-      <SelectTrigger className="w-[140px]">
-        <SelectValue placeholder={t('lang.label')} />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="en">{t('lang.english')}</SelectItem>
-        <SelectItem value="hi">{t('lang.hindi')}</SelectItem>
-        <SelectItem value="pa">{t('lang.punjabi')}</SelectItem>
-      </SelectContent>
-    </Select>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" size="sm" className="gap-2 transition-all hover:scale-105">
+          <Languages className="h-4 w-4" />
+          <span className="hidden sm:inline">{currentLanguage.nativeName}</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="animate-scale-in">
+        {languages.map((language) => (
+          <DropdownMenuItem
+            key={language.code}
+            onClick={() => changeLanguage(language.code)}
+            className={`cursor-pointer transition-colors ${
+              i18n.language === language.code ? 'bg-accent' : ''
+            }`}
+          >
+            <span className="font-medium">{language.nativeName}</span>
+            <span className="text-muted-foreground ml-2">({language.name})</span>
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 
 export default LanguageSwitcher;
-
-
