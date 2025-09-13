@@ -9,7 +9,8 @@ export const useSyncManager = () => {
     clearSyncQueue,
     updateLastSync,
     saveWeatherData,
-    saveAdvisory
+    saveAdvisory,
+    getAdvisories
   } = useOfflineStorage();
 
   const syncWithServer = useCallback(async () => {
@@ -66,18 +67,28 @@ export const useSyncManager = () => {
         timestamp: Date.now()
       };
 
-      const mockAdvisory = {
-        id: `advisory_${Date.now()}`,
-        title: "Weather Alert",
-        content: "Expect light rainfall in the next 24 hours. Good time for sowing.",
-        category: 'weather' as const,
-        language: 'en',
-        timestamp: Date.now(),
-        isRead: false
-      };
+      // Only add advisory if we don't have many recent ones
+      const existingAdvisories = getAdvisories();
+      const recentAdvisories = existingAdvisories.filter(
+        advisory => advisory.timestamp > Date.now() - 24 * 60 * 60 * 1000 // Last 24 hours
+      );
+
+      // Only add new advisory if we have less than 3 recent advisories
+      if (recentAdvisories.length < 3) {
+        const mockAdvisory = {
+          id: `advisory_${Date.now()}`,
+          title: "Weather Alert",
+          content: "Expect light rainfall in the next 24 hours. Good time for sowing.",
+          category: 'weather' as const,
+          language: 'en',
+          timestamp: Date.now(),
+          isRead: false
+        };
+
+        saveAdvisory(mockAdvisory);
+      }
 
       saveWeatherData(mockWeatherData);
-      saveAdvisory(mockAdvisory);
 
     } catch (error) {
       console.error('Failed to fetch latest data:', error);
@@ -98,7 +109,7 @@ export const useSyncManager = () => {
 
     const interval = setInterval(() => {
       fetchLatestData();
-    }, 30000); // Sync every 30 seconds when online
+    }, 300000); // Sync every 5 minutes when online
 
     return () => clearInterval(interval);
   }, [isOnline, fetchLatestData]);

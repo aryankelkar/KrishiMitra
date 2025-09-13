@@ -7,7 +7,7 @@ import { formatDistanceToNow } from "date-fns";
 import { useTranslation } from 'react-i18next';
 
 export const AdvisoriesPanel = () => {
-  const { getAdvisories, markAdvisoryAsRead } = useOfflineStorage();
+  const { getAdvisories, markAdvisoryAsRead, clearAllAdvisories } = useOfflineStorage();
   const advisories = getAdvisories();
   const unreadCount = advisories.filter(a => !a.isRead).length;
   const { t } = useTranslation();
@@ -38,11 +38,23 @@ export const AdvisoriesPanel = () => {
             <Bell className="h-5 w-5 text-primary" />
             {t('advisories.title')}
           </div>
-          {unreadCount > 0 && (
-            <Badge className="bg-destructive text-destructive-foreground">
-              {t('advisories.newCount', { count: unreadCount })}
-            </Badge>
-          )}
+          <div className="flex items-center gap-2">
+            {unreadCount > 0 && (
+              <Badge className="bg-destructive text-destructive-foreground">
+                {t('advisories.newCount', { count: unreadCount })}
+              </Badge>
+            )}
+            {advisories.length > 0 && (
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={clearAllAdvisories}
+                className="h-6 text-xs"
+              >
+                Clear All
+              </Button>
+            )}
+          </div>
         </CardTitle>
       </CardHeader>
       <CardContent>

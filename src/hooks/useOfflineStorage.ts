@@ -103,6 +103,10 @@ export const useOfflineStorage = () => {
     localStorage.setItem(STORAGE_KEYS.ADVISORIES, JSON.stringify(updatedAdvisories));
   };
 
+  const clearAllAdvisories = () => {
+    localStorage.setItem(STORAGE_KEYS.ADVISORIES, JSON.stringify([]));
+  };
+
   const addToSyncQueue = (action: { type: string; data: any; timestamp: number }) => {
     const queue = getSyncQueue();
     queue.push(action);
@@ -134,6 +138,7 @@ export const useOfflineStorage = () => {
     saveAdvisory,
     getAdvisories,
     markAdvisoryAsRead,
+    clearAllAdvisories,
     addToSyncQueue,
     getSyncQueue,
     clearSyncQueue,

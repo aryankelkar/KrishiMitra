@@ -17,14 +17,31 @@ import {
 import farmingHero from "@/assets/farming-hero.jpg";
 import { OfflineIndicator } from "./OfflineIndicator";
 import { AdvisoriesPanel } from "./AdvisoriesPanel";
+import CameraScanner from "./CameraScanner";
 import { useOfflineStorage } from "@/hooks/useOfflineStorage";
 import { useSyncManager } from "@/hooks/useSyncManager";
 import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
 
 const FarmingDashboard = () => {
   const { getWeatherData } = useOfflineStorage();
   useSyncManager(); // Initialize sync manager
   const { t } = useTranslation();
+  
+  // Camera scanner state
+  const [cameraOpen, setCameraOpen] = useState(false);
+  const [cameraMode, setCameraMode] = useState<'scan-crop' | 'analyze-plant' | 'check-soil' | 'view-prices'>('scan-crop');
+  
+  // Camera handler functions
+  const openCamera = (mode: 'scan-crop' | 'analyze-plant' | 'check-soil' | 'view-prices') => {
+    setCameraMode(mode);
+    setCameraOpen(true);
+  };
+  
+  const handleImageCapture = (imageData: string) => {
+    console.log('Image captured:', imageData);
+    // Here you can save the image or send it to your backend for processing
+  };
   
   const weatherHistory = getWeatherData();
   const weatherData = weatherHistory[0] || {
@@ -216,10 +233,7 @@ const FarmingDashboard = () => {
               <Button 
                 variant="outline" 
                 className="w-full hover-glow transition-all duration-300"
-                onClick={() => {
-                  // Simulate pest detection scan
-                  alert(t('dashboard.pestDetection') + ': ' + t('dashboard.scanCrop') + ' - Feature coming soon!');
-                }}
+                onClick={() => openCamera('scan-crop')}
               >
                 {t('dashboard.scanCrop')}
               </Button>
@@ -242,10 +256,7 @@ const FarmingDashboard = () => {
               <Button 
                 variant="outline" 
                 className="w-full hover-glow transition-all duration-300"
-                onClick={() => {
-                  // Simulate disease analysis
-                  alert(t('dashboard.diseaseAnalysis') + ': ' + t('dashboard.analyzePlant') + ' - Feature coming soon!');
-                }}
+                onClick={() => openCamera('analyze-plant')}
               >
                 {t('dashboard.analyzePlant')}
               </Button>
@@ -268,10 +279,7 @@ const FarmingDashboard = () => {
               <Button 
                 variant="outline" 
                 className="w-full hover-glow transition-all duration-300"
-                onClick={() => {
-                  // Simulate soil health check
-                  alert(t('dashboard.soilHealth') + ': ' + t('dashboard.checkSoil') + ' - Feature coming soon!');
-                }}
+                onClick={() => openCamera('check-soil')}
               >
                 {t('dashboard.checkSoil')}
               </Button>
@@ -294,10 +302,7 @@ const FarmingDashboard = () => {
               <Button 
                 variant="outline" 
                 className="w-full hover-glow transition-all duration-300"
-                onClick={() => {
-                  // Simulate market prices view
-                  alert(t('dashboard.marketPrices') + ': ' + t('dashboard.viewPrices') + ' - Feature coming soon!');
-                }}
+                onClick={() => openCamera('view-prices')}
               >
                 {t('dashboard.viewPrices')}
               </Button>
@@ -325,6 +330,14 @@ const FarmingDashboard = () => {
           </CardContent>
         </Card>
       </main>
+
+      {/* Camera Scanner Modal */}
+      <CameraScanner
+        isOpen={cameraOpen}
+        onClose={() => setCameraOpen(false)}
+        mode={cameraMode}
+        onCapture={handleImageCapture}
+      />
     </div>
   );
 };
