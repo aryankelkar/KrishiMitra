@@ -55,8 +55,7 @@ export const resources = {
       lang: {
         label: 'Language',
         english: 'English',
-        hindi: 'Hindi',
-        punjabi: 'Punjabi'
+        hindi: 'Hindi'
       },
       dashboard: {
         brand: 'KrishiMitra',
@@ -86,7 +85,8 @@ export const resources = {
         askAssistant: 'Ask KrishiMitra Assistant',
         askAssistantDesc: 'Get instant answers in your local language about farming, weather, and crops',
         voiceChat: 'Voice Chat',
-        textChat: 'Text Chat'
+        textChat: 'Text Chat',
+        chatWithUs: 'Chat with Us'
       },
       advisories: {
         title: 'Farm Advisories',
@@ -106,7 +106,22 @@ export const resources = {
         listening: 'Listening',
         muted: 'Muted',
         inputPlaceholder: 'Type your message...',
-        
+        quickWeather: 'Weather Info',
+        quickWeatherQ: "What's today's weather?",
+        quickCrop: 'Crop Advice',
+        quickCropQ: 'Give advice for my crops',
+        quickPest: 'Pest Control',
+        quickPestQ: 'Pest control measures',
+        quickMarket: 'Market Prices',
+        quickMarketQ: "Today's market prices",
+        quickSoil: 'Soil Health',
+        quickSoilQ: 'How to improve soil health?',
+        quickIrrigation: 'Irrigation',
+        quickIrrigationQ: 'When should I irrigate my crops?',
+        quickFertilizer: 'Fertilizer',
+        quickFertilizerQ: 'What fertilizer should I use?',
+        quickHarvest: 'Harvest Time',
+        quickHarvestQ: 'When is the best time to harvest?'
       },
       notFound: {
         oops: 'Oops! Page not found',
@@ -195,7 +210,8 @@ export const resources = {
         askAssistant: 'कृषि मित्र सहायक से पूछें',
         askAssistantDesc: 'खेती, मौसम और फसलों पर अपने स्थानीय भाषा में तुरंत उत्तर पाएं',
         voiceChat: 'वॉइस चैट',
-        textChat: 'टेक्स्ट चैट'
+        textChat: 'टेक्स्ट चैट',
+        chatWithUs: 'हमसे बात करें'
       },
       advisories: {
         title: 'खेत परामर्श',
@@ -215,7 +231,22 @@ export const resources = {
         listening: 'सुन रहा है',
         muted: 'म्यूट',
         inputPlaceholder: 'अपना संदेश टाइप करें...',
-        
+        quickWeather: 'मौसम जानकारी',
+        quickWeatherQ: 'आज का मौसम कैसा है?',
+        quickCrop: 'फसल सलाह',
+        quickCropQ: 'मेरी फसल के लिए सलाह दें',
+        quickPest: 'कीट नियंत्रण',
+        quickPestQ: 'कीट नियंत्रण के उपाय',
+        quickMarket: 'बाजार भाव',
+        quickMarketQ: 'आज के बाजार भाव',
+        quickSoil: 'मिट्टी स्वास्थ्य',
+        quickSoilQ: 'मिट्टी की गुणवत्ता कैसे सुधारें?',
+        quickIrrigation: 'सिंचाई',
+        quickIrrigationQ: 'फसल की सिंचाई कब करें?',
+        quickFertilizer: 'उर्वरक',
+        quickFertilizerQ: 'कौन सा उर्वरक उपयोग करें?',
+        quickHarvest: 'कटाई समय',
+        quickHarvestQ: 'कटाई का सबसे अच्छा समय कब है?'
       },
       notFound: {
         oops: 'अरे! पेज नहीं मिला',
@@ -274,8 +305,7 @@ export const resources = {
       lang: {
         label: 'ਭਾਸ਼ਾ',
         english: 'English',
-        hindi: 'हिन्दी',
-        punjabi: 'ਪੰਜਾਬੀ'
+        hindi: 'हिन्दी'
       },
       dashboard: {
         brand: 'ਖੇਤੀ ਮਿਤਰ',
@@ -305,7 +335,8 @@ export const resources = {
         askAssistant: 'ਖੇਤੀ ਮਿਤਰ ਸਹਾਇਕ ਨੂੰ ਪੁੱਛੋ',
         askAssistantDesc: 'ਖੇਤੀ, ਮੌਸਮ ਅਤੇ ਫਸਲਾਂ ਬਾਰੇ ਤੁਰੰਤ ਜਵਾਬ',
         voiceChat: 'ਵਾਇਸ ਚੈਟ',
-        textChat: 'ਟੈਕਸਟ ਚੈਟ'
+        textChat: 'ਟੈਕਸਟ ਚੈਟ',
+        chatWithUs: 'ਸਾਡੇ ਨਾਲ ਗੱਲ ਕਰੋ'
       },
       advisories: {
         title: 'ਫਾਰਮ ਸਲਾਹ',
@@ -325,7 +356,22 @@ export const resources = {
         listening: 'ਸੁਣ ਰਿਹਾ',
         muted: 'ਮਿਊਟ',
         inputPlaceholder: 'ਆਪਣਾ ਸੁਨੇਹਾ ਟਾਈਪ ਕਰੋ...',
-        
+        quickWeather: 'ਮੌਸਮ ਜਾਣਕਾਰੀ',
+        quickWeatherQ: 'ਅੱਜ ਦਾ ਮੌਸਮ ਕਿਵੇਂ ਹੈ?',
+        quickCrop: 'ਫਸਲ ਸਲਾਹ',
+        quickCropQ: 'ਮੇਰੀ ਫਸਲ ਲਈ ਸਲਾਹ ਦਿਓ',
+        quickPest: 'ਕੀਟ ਕੰਟਰੋਲ',
+        quickPestQ: 'ਕੀਟ ਕੰਟਰੋਲ ਉਪਾਅ',
+        quickMarket: 'ਮੰਡੀ ਭਾਵ',
+        quickMarketQ: 'ਅੱਜ ਦੇ ਮੰਡੀ ਭਾਵ',
+        quickSoil: 'ਮਿੱਟੀ ਸਿਹਤ',
+        quickSoilQ: 'ਮਿੱਟੀ ਦੀ ਗੁਣਵੱਤਾ ਕਿਵੇਂ ਸੁਧਾਰੀਏ?',
+        quickIrrigation: 'ਸਿੰਚਾਈ',
+        quickIrrigationQ: 'ਫਸਲ ਦੀ ਸਿੰਚਾਈ ਕਦੋਂ ਕਰੀਏ?',
+        quickFertilizer: 'ਖਾਦ',
+        quickFertilizerQ: 'ਕਿਹੜੀ ਖਾਦ ਵਰਤੀਏ?',
+        quickHarvest: 'ਕਟਾਈ ਸਮਾਂ',
+        quickHarvestQ: 'ਕਟਾਈ ਦਾ ਸਭ ਤੋਂ ਵਧੀਆ ਸਮਾਂ ਕਦੋਂ ਹੈ?'
       },
       notFound: {
         oops: 'ਓਹੁ! ਪੇਜ ਨਹੀਂ ਮਿਲਿਆ',

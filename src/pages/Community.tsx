@@ -90,6 +90,7 @@ const Community = () => {
   const handlePost = () => {
     if (newPost.trim()) {
       // Add new post logic here
+      alert('Post created successfully! (Simulated)');
       setNewPost('');
     }
   };
@@ -116,7 +117,10 @@ const Community = () => {
                 key={category.name}
                 variant={getCategoryVariant(category.color)}
                 size="sm"
-                className="whitespace-nowrap"
+                className="whitespace-nowrap hover-lift transition-all duration-300"
+                onClick={() => {
+                  alert(`Filter by: ${category.name} - Feature coming soon!`);
+                }}
               >
                 {category.name}
               </Button>
@@ -137,18 +141,36 @@ const Community = () => {
                 placeholder={t('community.placeholder')}
                 className="min-h-[100px]"
               />
-              <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center">
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm" className="gap-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="gap-2 hover-lift transition-all duration-300"
+                    onClick={() => {
+                      alert('Photo upload feature - Coming soon!');
+                    }}
+                  >
                     <Image className="h-4 w-4" />
                     {t('community.photo')}
                   </Button>
-                  <Button variant="outline" size="sm" className="gap-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="gap-2 hover-lift transition-all duration-300"
+                    onClick={() => {
+                      alert('Video upload feature - Coming soon!');
+                    }}
+                  >
                     <Video className="h-4 w-4" />
                     {t('community.video')}
                   </Button>
                 </div>
-                <Button onClick={handlePost} disabled={!newPost.trim()} className="gap-2">
+                <Button 
+                  onClick={handlePost} 
+                  disabled={!newPost.trim()} 
+                  className="gap-2 hover-lift transition-all duration-300"
+                >
                   <Send className="h-4 w-4" />
                   {t('community.post')}
                 </Button>
@@ -191,21 +213,49 @@ const Community = () => {
                 
                 <div className="flex items-center justify-between pt-3 border-t">
                   <div className="flex gap-4">
-                    <Button variant="ghost" size="sm" className="gap-2 text-muted-foreground hover:text-red-500">
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="gap-2 text-muted-foreground hover:text-red-500 hover-lift transition-all duration-300"
+                      onClick={() => {
+                        alert(`Liked post by ${post.author}!`);
+                      }}
+                    >
                       <Heart className="h-4 w-4" />
                       {post.likes}
                     </Button>
-                    <Button variant="ghost" size="sm" className="gap-2 text-muted-foreground">
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="gap-2 text-muted-foreground hover-lift transition-all duration-300"
+                      onClick={() => {
+                        alert(`Comment on ${post.author}'s post - Feature coming soon!`);
+                      }}
+                    >
                       <MessageSquare className="h-4 w-4" />
                       {post.comments}
                     </Button>
                   </div>
                   
                   <div className="flex gap-2">
-                    <Button variant="ghost" size="sm" className="text-muted-foreground">
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="text-muted-foreground hover-lift transition-all duration-300"
+                      onClick={() => {
+                        alert('Post bookmarked!');
+                      }}
+                    >
                       <Bookmark className="h-4 w-4" />
                     </Button>
-                    <Button variant="ghost" size="sm" className="text-muted-foreground">
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="text-muted-foreground hover-lift transition-all duration-300"
+                      onClick={() => {
+                        alert('Share post - Feature coming soon!');
+                      }}
+                    >
                       <Share2 className="h-4 w-4" />
                     </Button>
                   </div>
@@ -217,7 +267,15 @@ const Community = () => {
 
         {/* Load More */}
         <div className="mt-8 text-center">
-          <Button variant="outline">{t('community.loadMore')}</Button>
+          <Button 
+            variant="outline" 
+            className="hover-lift transition-all duration-300"
+            onClick={() => {
+              alert('Load more posts - Feature coming soon!');
+            }}
+          >
+            {t('community.loadMore')}
+          </Button>
         </div>
       </div>
     </div>

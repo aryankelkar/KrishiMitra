@@ -20,7 +20,6 @@ import { AdvisoriesPanel } from "./AdvisoriesPanel";
 import { useOfflineStorage } from "@/hooks/useOfflineStorage";
 import { useSyncManager } from "@/hooks/useSyncManager";
 import { useTranslation } from 'react-i18next';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 const FarmingDashboard = () => {
   const { getWeatherData } = useOfflineStorage();
@@ -45,22 +44,41 @@ const FarmingDashboard = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-muted">
       {/* Header */}
-      <header className="border-b bg-card/80 backdrop-blur-sm sticky top-0 z-50">
+      <header className="border-b bg-card/90 backdrop-blur-md sticky top-0 z-50 shadow-soft">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="logo" className="h-8 w-8" />
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
+            <div className="relative group">
+              <img src="/logo.png" alt="logo" className="h-8 w-8 transition-transform duration-300 group-hover:scale-110" />
+              <div className="absolute inset-0 rounded-full bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse-glow"></div>
+            </div>
+            <h1 className="text-2xl font-bold text-gradient">
               {t('dashboard.brand')}
             </h1>
           </div>
           
           <div className="flex items-center gap-4">
             <OfflineIndicator />
-            <Button variant="outline" size="sm">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="hover-lift hover-glow transition-all duration-300"
+              onClick={() => {
+                // Show alerts modal or page
+                alert('Alerts: No new notifications at this time.');
+              }}
+            >
               <Bell className="h-4 w-4 mr-2" />
               {t('dashboard.alerts')}
             </Button>
-            <Button variant="outline" size="sm">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="hover-lift hover-glow transition-all duration-300"
+              onClick={() => {
+                // Navigate to profile or show profile modal
+                alert('Profile: User profile management - Feature coming soon!');
+              }}
+            >
               <User className="h-4 w-4 mr-2" />
               {t('dashboard.profile')}
             </Button>
@@ -83,7 +101,14 @@ const FarmingDashboard = () => {
               <p className="text-xl mb-6 text-white/90">
                 {t('dashboard.heroSubtitle')}
               </p>
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90">
+              <Button 
+                size="lg" 
+                className="bg-white text-primary hover:bg-white/90 hover-lift transition-all duration-300"
+                onClick={() => {
+                  // Open location picker or GPS
+                  alert('Set Farm Location: GPS location feature - Coming soon!');
+                }}
+              >
                 <MapPin className="h-4 w-4 mr-2" />
                 {t('dashboard.setFarmLocation')}
               </Button>
@@ -176,64 +201,104 @@ const FarmingDashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           
           {/* Pest Detection */}
-          <Card className="group hover:shadow-[var(--shadow-strong)] transition-all duration-300 cursor-pointer border-2 hover:border-primary/20">
+          <Card className="group hover-lift transition-all duration-300 cursor-pointer border-2 hover:border-primary/20 shadow-soft hover:shadow-strong">
             <CardHeader className="text-center pb-2">
-              <Bug className="h-12 w-12 text-destructive mx-auto mb-2 group-hover:scale-110 transition-transform" />
+              <div className="relative">
+                <Bug className="h-12 w-12 text-destructive mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" />
+                <div className="absolute inset-0 rounded-full bg-destructive/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
               <CardTitle className="text-lg">{t('dashboard.pestDetection')}</CardTitle>
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-sm text-muted-foreground mb-4">
                 {t('dashboard.pestDetectionDesc')}
               </p>
-              <Button variant="outline" className="w-full">
+              <Button 
+                variant="outline" 
+                className="w-full hover-glow transition-all duration-300"
+                onClick={() => {
+                  // Simulate pest detection scan
+                  alert(t('dashboard.pestDetection') + ': ' + t('dashboard.scanCrop') + ' - Feature coming soon!');
+                }}
+              >
                 {t('dashboard.scanCrop')}
               </Button>
             </CardContent>
           </Card>
 
           {/* Disease Analysis */}
-          <Card className="group hover:shadow-[var(--shadow-strong)] transition-all duration-300 cursor-pointer border-2 hover:border-primary/20">
+          <Card className="group hover-lift transition-all duration-300 cursor-pointer border-2 hover:border-primary/20 shadow-soft hover:shadow-strong">
             <CardHeader className="text-center pb-2">
-              <Sprout className="h-12 w-12 text-warning mx-auto mb-2 group-hover:scale-110 transition-transform" />
+              <div className="relative">
+                <Sprout className="h-12 w-12 text-warning mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" />
+                <div className="absolute inset-0 rounded-full bg-warning/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
               <CardTitle className="text-lg">{t('dashboard.diseaseAnalysis')}</CardTitle>
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-sm text-muted-foreground mb-4">
                 {t('dashboard.diseaseAnalysisDesc')}
               </p>
-              <Button variant="outline" className="w-full">
+              <Button 
+                variant="outline" 
+                className="w-full hover-glow transition-all duration-300"
+                onClick={() => {
+                  // Simulate disease analysis
+                  alert(t('dashboard.diseaseAnalysis') + ': ' + t('dashboard.analyzePlant') + ' - Feature coming soon!');
+                }}
+              >
                 {t('dashboard.analyzePlant')}
               </Button>
             </CardContent>
           </Card>
 
           {/* Soil Health */}
-          <Card className="group hover:shadow-[var(--shadow-strong)] transition-all duration-300 cursor-pointer border-2 hover:border-primary/20">
+          <Card className="group hover-lift transition-all duration-300 cursor-pointer border-2 hover:border-primary/20 shadow-soft hover:shadow-strong">
             <CardHeader className="text-center pb-2">
-              <Globe className="h-12 w-12 text-accent mx-auto mb-2 group-hover:scale-110 transition-transform" />
+              <div className="relative">
+                <Globe className="h-12 w-12 text-accent mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" />
+                <div className="absolute inset-0 rounded-full bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
               <CardTitle className="text-lg">{t('dashboard.soilHealth')}</CardTitle>
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-sm text-muted-foreground mb-4">
                 {t('dashboard.soilHealthDesc')}
               </p>
-              <Button variant="outline" className="w-full">
+              <Button 
+                variant="outline" 
+                className="w-full hover-glow transition-all duration-300"
+                onClick={() => {
+                  // Simulate soil health check
+                  alert(t('dashboard.soilHealth') + ': ' + t('dashboard.checkSoil') + ' - Feature coming soon!');
+                }}
+              >
                 {t('dashboard.checkSoil')}
               </Button>
             </CardContent>
           </Card>
 
           {/* Market Prices */}
-          <Card className="group hover:shadow-[var(--shadow-strong)] transition-all duration-300 cursor-pointer border-2 hover:border-primary/20">
+          <Card className="group hover-lift transition-all duration-300 cursor-pointer border-2 hover:border-primary/20 shadow-soft hover:shadow-strong">
             <CardHeader className="text-center pb-2">
-              <TrendingUp className="h-12 w-12 text-success mx-auto mb-2 group-hover:scale-110 transition-transform" />
+              <div className="relative">
+                <TrendingUp className="h-12 w-12 text-success mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" />
+                <div className="absolute inset-0 rounded-full bg-success/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
               <CardTitle className="text-lg">{t('dashboard.marketPrices')}</CardTitle>
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-sm text-muted-foreground mb-4">
                 {t('dashboard.marketPricesDesc')}
               </p>
-              <Button variant="outline" className="w-full">
+              <Button 
+                variant="outline" 
+                className="w-full hover-glow transition-all duration-300"
+                onClick={() => {
+                  // Simulate market prices view
+                  alert(t('dashboard.marketPrices') + ': ' + t('dashboard.viewPrices') + ' - Feature coming soon!');
+                }}
+              >
                 {t('dashboard.viewPrices')}
               </Button>
             </CardContent>
@@ -253,7 +318,7 @@ const FarmingDashboard = () => {
               </p>
               <div className="flex gap-3 justify-center">
                 <Button size="lg" className="bg-primary hover:bg-primary/90" onClick={() => window.location.href = '/'}>
-                  💬 Chat with us
+                  💬 {t('dashboard.chatWithUs')}
                 </Button>
               </div>
             </div>

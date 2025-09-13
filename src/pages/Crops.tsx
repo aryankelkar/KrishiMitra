@@ -87,7 +87,13 @@ const Crops = () => {
               <h1 className="text-2xl font-bold text-foreground mb-2">{t('crops.title')}</h1>
               <p className="text-muted-foreground">{t('crops.subtitle')}</p>
             </div>
-            <Button className="gap-2">
+            <Button 
+              className="gap-2 hover-lift transition-all duration-300"
+              onClick={() => {
+                // Open add crop modal or form
+                alert('Add Crop: Crop registration form - Feature coming soon!');
+              }}
+            >
               <Plus className="h-4 w-4" />
               {t('crops.addCrop')}
             </Button>
@@ -162,15 +168,36 @@ const Crops = () => {
 
                 {/* Action Buttons */}
                 <div className="flex gap-2 pt-2">
-                  <Button variant="outline" size="sm" className="flex-1 gap-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex-1 gap-2 hover-lift transition-all duration-300"
+                    onClick={() => {
+                      alert(`Take Photo: Camera feature for ${crop.name} - Coming soon!`);
+                    }}
+                  >
                     <Camera className="h-4 w-4" />
                     {t('crops.takePhoto')}
                   </Button>
-                  <Button variant="outline" size="sm" className="flex-1 gap-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex-1 gap-2 hover-lift transition-all duration-300"
+                    onClick={() => {
+                      alert(`Record: Log activity for ${crop.name} - Coming soon!`);
+                    }}
+                  >
                     <Calendar className="h-4 w-4" />
                     {t('crops.record')}
                   </Button>
-                  <Button variant="outline" size="sm" className="flex-1 gap-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex-1 gap-2 hover-lift transition-all duration-300"
+                    onClick={() => {
+                      alert(`Irrigate: Schedule irrigation for ${crop.name} - Coming soon!`);
+                    }}
+                  >
                     <Droplets className="h-4 w-4" />
                     {t('crops.irrigate')}
                   </Button>
@@ -192,7 +219,13 @@ const Crops = () => {
             ].map((action, index) => {
               const IconComponent = action.icon;
               return (
-                <Card key={index} className="hover:shadow-md transition-shadow cursor-pointer">
+                <Card 
+                  key={index} 
+                  className="hover:shadow-md transition-all duration-300 cursor-pointer hover-lift"
+                  onClick={() => {
+                    alert(`${action.title}: ${action.desc} - Feature coming soon!`);
+                  }}
+                >
                   <CardContent className="p-4">
                     <div className="flex items-center gap-3">
                       <div className="p-2 rounded-full bg-accent/10">
